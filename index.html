@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopUp Heaven - Premium Gaming Store</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .terminal-font {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.8);
+        }
+        .glow-green {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 glass-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-bolt text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-indigo-400">
+                            TOPUP<span class="text-indigo-500">HEAVEN</span>
+                        </span>
+                        <div class="text-[9px] text-indigo-400 tracking-widest uppercase font-semibold">PREMIUM STORE</div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Lacak Pesanan</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Hubungi Kami</a>
+                </div>
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Sistem Online 24 Jam
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- HERO HEADLINE -->
+        <div class="text-center mb-10 max-w-3xl mx-auto" id="hero-banner">
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+                Top Up Game Instan & <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Instan Delivery</span>
+            </h1>
+            <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                Platform top-up resmi terpercaya di Indonesia. Proses instan dengan integrasi sistem keamanan mutakhir serta perlindungan enkripsi tameng digital 256-bit.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8" id="main-interface">
+            <!-- LEFT COLUMN: GAME SELECTION -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="glass-panel rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-indigo-500"></i>
+                        Pilih Game Favorit
+                    </h2>
+                    <div class="grid grid-cols-2 gap-3" id="game-list">
+                        <!-- Games are dynamically loaded via JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: DETAILS FORM (DYNAMIC) -->
+            <div class="lg:col-span-8 space-y-6">
+                <!-- Step 1: Account Input -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-bold">1</div>
+                        <h2 class="text-lg font-bold text-white" id="step1-title">Masukkan User ID & ID Akun</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2" id="id-label">User ID / Username</label>
+                            <input type="text" id="user-id-input" placeholder="Contoh: 128471928" class="w-full bg-gray-900/60 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition">
+                        </div>
+                        <div id="zone-id-container">
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Zone ID / Server ID</label>
+                            <input type="text" id="zone-id-input" placeholder="Contoh: (2041)" class="w-full bg-gray-900/60 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3" id="id-help-text">Harap pastikan User ID Anda benar agar pengiriman saldo game tepat sasaran.</p>
+                </div>
+
+                <!-- Step 2: Nominal Select -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-bold">2</div>
+                        <h2 class="text-lg font-bold text-white">Pilih Nominal Top Up</h2>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="nominal-list">
+                        <!-- Nominals loaded dynamically based on selected game -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Method -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-bold">3</div>
+                        <h2 class="text-lg font-bold text-white">Pilih Metode Pembayaran Resmi</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="payment-list">
+                        <!-- Payments loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Step 4: WhatsApp Confirmation & Submit -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-bold">4</div>
+                        <h2 class="text-lg font-bold text-white">Selesaikan Pembayaran</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Nomor WhatsApp (Aktif)</label>
+                            <input type="tel" id="whatsapp-input" placeholder="Contoh: 08123456789" class="w-full bg-gray-900/60 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition">
+                            <p class="text-xs text-gray-500 mt-1">Bukti pembayaran resmi, detail pemesanan, dan link konfirmasi akan otomatis dikirimkan ke nomor ini.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-gray-900/40 border border-gray-800 rounded-xl space-y-2">
+                            <div class="flex justify-between text-sm text-gray-400">
+                                <span>Game Terpilih:</span>
+                                <span id="summary-game" class="font-semibold text-white">-</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-400">
+                                <span>Item Nominal:</span>
+                                <span id="summary-nominal" class="font-semibold text-white">-</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-400">
+                                <span>Metode Bayar:</span>
+                                <span id="summary-payment" class="font-semibold text-white">-</span>
+                            </div>
+                            <div class="border-t border-gray-800 my-2 pt-2 flex justify-between items-center text-base font-bold">
+                                <span class="text-white">Total Pembayaran:</span>
+                                <span id="summary-price" class="text-indigo-400">-</span>
+                            </div>
+                        </div>
+
+                        <button onclick="triggerPayment()" class="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg glow-button flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-credit-card"></i>
+                            Bayar Sekarang & Kirim Saldo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREENSHOT-LIKE TERMINAL SCREEN (HIDDEN BY DEFAULT) -->
+        <div id="terminal-screen" class="hidden max-w-4xl mx-auto my-6 bg-[#030712] border-2 border-gray-800 rounded-2xl overflow-hidden shadow-2xl relative">
+            <!-- Terminal Title Bar -->
+            <div class="bg-[#0f172a] px-4 py-3 flex items-center justify-between border-b border-gray-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                </div>
+                <div class="terminal-font text-xs text-gray-400 font-bold uppercase tracking-wider">
+                    SYSTEM@INJECTOR_TERMINAL:~
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span class="terminal-font text-[10px] text-emerald-400 font-semibold tracking-widest uppercase">EXECUTING</span>
+                </div>
+            </div>
+
+            <!-- Terminal Screen Area -->
+            <div class="p-6 md:p-8 terminal-font text-sm md:text-base leading-relaxed overflow-y-auto max-h-[450px] space-y-3" id="terminal-logs-container">
+                <!-- Terminal outputs will print here dynamically -->
+            </div>
+
+            <!-- Progress Bar Area -->
+            <div class="bg-[#0b0f19] p-6 border-t border-gray-900">
+                <div class="flex justify-between items-center text-emerald-400 terminal-font text-xs font-bold tracking-widest uppercase mb-2">
+                    <span>PERSENTASE INFILTRASI DATA SERVER</span>
+                    <span id="terminal-percent-text">0%</span>
+                </div>
+                <div class="w-full bg-[#1e293b] rounded-full h-4 overflow-hidden relative border border-gray-800">
+                    <div id="terminal-progress-fill" class="h-full bg-[#2ecc71] transition-all duration-300 w-0" style="box-shadow: 0 0 10px rgba(46, 204, 113, 0.6)"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUCCESS INJECT SCREEN (HIDDEN BY DEFAULT) -->
+        <div id="success-screen" class="hidden max-w-xl mx-auto text-center py-12 px-6 glass-panel rounded-3xl border-2 border-emerald-500/30 space-y-6 my-10 animate-fade-in">
+            <div class="w-20 h-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center mx-auto text-4xl text-emerald-400 glow-green">
+                <i class="fa-solid fa-check-double"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h2 class="text-3xl font-extrabold text-white">TOP UP BERHASIL!</h2>
+                <p class="text-gray-400 text-sm">Dana pembayaran divalidasi sangat sah. Payload item game Anda sedang berhasil disuntikkan secara aman ke server pusat.</p>
+            </div>
+
+            <div class="p-5 bg-gray-900/60 border border-gray-800 rounded-2xl text-left space-y-3 max-w-md mx-auto">
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">ID Target:</span>
+                    <span id="final-user-id" class="text-white font-mono font-bold">-</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Game:</span>
+                    <span id="final-game" class="text-white font-semibold">-</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Paket:</span>
+                    <span id="final-nominal" class="text-white font-semibold text-emerald-400">-</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Metode Bayar:</span>
+                    <span id="final-payment" class="text-white font-semibold">-</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Status Payload:</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider border border-emerald-500/20">Success (100%)</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+                <button onclick="shareToWhatsApp()" class="flex-1 py-4.5 px-6 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-extrabold rounded-xl transition duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-emerald-500/20">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    Bagikan ke WhatsApp
+                </button>
+                <button onclick="resetToHome()" class="py-4.5 px-6 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl transition duration-300">
+                    Selesai / Top Up Lagi
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="glass-panel border-t border-gray-800 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center shadow">
+                        <i class="fa-solid fa-bolt text-indigo-400"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white tracking-tight">
+                        TOPUP<span class="text-indigo-500">HEAVEN</span>
+                    </span>
+                </div>
+                <p class="text-xs text-gray-500 text-center md:text-right">
+                    © 2026 TopUp Heaven Store. Semua hak cipta dilindungi undang-undang. Top-up aman, resmi, anti-minus.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERFACE LOGIC & TERMINAL GENERATOR -->
+    <script>
+        // Games Catalog Data
+        const gamesData = [
+            {
+                id: 'mlbb',
+                name: 'Mobile Legends',
+                icon: 'fa-solid fa-gamepad',
+                currency: 'Diamonds',
+                hasZone: true,
+                nominals: [
+                    { id: 'ml_1', value: '86 Diamonds', price: 'Rp 19.500' },
+                    { id: 'ml_2', value: '172 Diamonds', price: 'Rp 39.000' },
+                    { id: 'ml_3', value: '257 Diamonds', price: 'Rp 59.000' },
+                    { id: 'ml_4', value: '706 Diamonds', price: 'Rp 158.000' },
+                    { id: 'ml_5', value: '1412 Diamonds', price: 'Rp 315.000' },
+                    { id: 'ml_6', value: '2195 Diamonds', price: 'Rp 475.000' }
+                ]
+            },
+            {
+                id: 'ff',
+                name: 'Free Fire',
+                icon: 'fa-solid fa-fire',
+                currency: 'Diamonds',
+                hasZone: false,
+                nominals: [
+                    { id: 'ff_1', value: '50 Diamonds', price: 'Rp 7.500' },
+                    { id: 'ff_2', value: '70 Diamonds', price: 'Rp 9.800' },
+                    { id: 'ff_3', value: '140 Diamonds', price: 'Rp 19.500' },
+                    { id: 'ff_4', value: '355 Diamonds', price: 'Rp 49.000' },
+                    { id: 'ff_5', value: '720 Diamonds', price: 'Rp 97.000' },
+                    { id: 'ff_6', value: '1440 Diamonds', price: 'Rp 194.000' }
+                ]
+            },
+            {
+                id: 'pubg',
+                name: 'PUBG Mobile',
+                icon: 'fa-solid fa-crosshairs',
+                currency: 'Unknown Cash (UC)',
+                hasZone: false,
+                nominals: [
+                    { id: 'pubg_1', value: '32 UC', price: 'Rp 7.000' },
+                    { id: 'pubg_2', value: '60 UC', price: 'Rp 13.500' },
+                    { id: 'pubg_3', value: '325 UC', price: 'Rp 64.000' },
+                    { id: 'pubg_4', value: '660 UC', price: 'Rp 128.000' },
+                    { id: 'pubg_5', value: '1800 UC', price: 'Rp 315.000' },
+                    { id: 'pubg_6', value: '3850 UC', price: 'Rp 650.000' }
+                ]
+            },
+            {
+                id: 'roblox',
+                name: 'Roblox',
+                icon: 'fa-solid fa-cube',
+                currency: 'Robux',
+                hasZone: false,
+                nominals: [
+                    { id: 'rb_1', value: '400 Robux', price: 'Rp 78.000' },
+                    { id: 'rb_2', value: '800 Robux', price: 'Rp 155.000' },
+                    { id: 'rb_3', value: '1700 Robux', price: 'Rp 310.000' },
+                    { id: 'rb_4', value: '4500 Robux', price: 'Rp 799.000' },
+                    { id: 'rb_5', value: '10000 Robux', price: 'Rp 1.650.000' }
+                ]
+            },
+            {
+                id: 'valorant',
+                name: 'Valorant',
+                icon: 'fa-solid fa-shield-halved',
+                currency: 'Valorant Points',
+                hasZone: false,
+                nominals: [
+                    { id: 'val_1', value: '375 Points', price: 'Rp 45.000' },
+                    { id: 'val_2', value: '625 Points', price: 'Rp 72.000' },
+                    { id: 'val_3', value: '1125 Points', price: 'Rp 132.000' },
+                    { id: 'val_4', value: '1650 Points', price: 'Rp 195.000' },
+                    { id: 'val_5', value: '2850 Points', price: 'Rp 310.000' },
+                    { id: 'val_6', value: '5800 Points', price: 'Rp 620.000' }
+                ]
+            },
+            {
+                id: 'genshin',
+                name: 'Genshin Impact',
+                icon: 'fa-solid fa-wand-magic-sparkles',
+                currency: 'Genesis Crystals',
+                hasZone: true,
+                nominals: [
+                    { id: 'gi_1', value: '60 Crystals', price: 'Rp 14.500' },
+                    { id: 'gi_2', value: '300 Crystals', price: 'Rp 72.000' },
+                    { id: 'gi_3', value: '980 Crystals', price: 'Rp 215.000' },
+                    { id: 'gi_4', value: '1980 Crystals', price: 'Rp 435.000' },
+                    { id: 'gi_5', value: '3280 Crystals', price: 'Rp 720.000' },
+                    { id: 'gi_6', value: '6480 Crystals', price: 'Rp 1.399.000' }
+                ]
+            }
+        ];
+
+        // Payments List
+        const paymentsData = [
+            { id: 'qris', name: 'QRIS (E-Wallet Instant)', extra: 'Dana, OVO, LinkAja, ShopeePay', icon: 'fa-solid fa-qrcode' },
+            { id: 'dana', name: 'DANA Premium Pay', extra: 'Proses Instan & Otomatis', icon: 'fa-solid fa-wallet' },
+            { id: 'gopay', name: 'GOPAY Autopay', extra: 'Verifikasi instan via Gojek', icon: 'fa-solid fa-wallet' },
+            { id: 'va', name: 'Virtual Account Bank', extra: 'BCA, Mandiri, BNI, BRI', icon: 'fa-solid fa-building-columns' }
+        ];
+
+        // State variables
+        let selectedGame = gamesData[0];
+        let selectedNominal = null;
+        let selectedPayment = paymentsData[0];
+
+        // Initialize UI Elements
+        window.addEventListener('DOMContentLoaded', () => {
+            renderGamesList();
+            selectGame(gamesData[0].id);
+            renderPaymentsList();
+        });
+
+        // Render Game Selection Icons
+        function renderGamesList() {
+            const container = document.getElementById('game-list');
+            container.innerHTML = '';
+            gamesData.forEach(game => {
+                const button = document.createElement('button');
+                button.id = `game-${game.id}`;
+                button.onclick = () => selectGame(game.id);
+                button.className = 'flex flex-col items-center justify-center p-4 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800/80 transition group relative overflow-hidden';
+                button.innerHTML = `
+                    <div class="w-12 h-12 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition duration-300">
+                        <i class="${game.icon}"></i>
+                    </div>
+                    <span class="text-xs font-bold text-gray-300 text-center group-hover:text-white transition">${game.name}</span>
+                `;
+                container.appendChild(button);
+            });
+        }
+
+        // Handle Selecting a Game
+        function selectGame(gameId) {
+            // Reset state
+            const previousGameId = selectedGame ? selectedGame.id : null;
+            selectedGame = gamesData.find(g => g.id === gameId);
+            
+            // Toggle Visual Selection
+            if (previousGameId) {
+                document.getElementById(`game-${previousGameId}`).className = 'flex flex-col items-center justify-center p-4 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800/80 transition group relative overflow-hidden';
+            }
+            document.getElementById(`game-${gameId}`).className = 'flex flex-col items-center justify-center p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/5 transition group relative overflow-hidden';
+
+            // Configure ID & Server inputs
+            const step1Title = document.getElementById('step1-title');
+            const idLabel = document.getElementById('id-label');
+            const zoneIdContainer = document.getElementById('zone-id-container');
+            const idHelpText = document.getElementById('id-help-text');
+
+            step1Title.innerText = `1. Detail Akun ${selectedGame.name}`;
+            idLabel.innerText = selectedGame.id === 'mlbb' || selectedGame.id === 'genshin' ? 'Masukkan User ID' : 'Username / ID Game';
+            
+            if (selectedGame.hasZone) {
+                zoneIdContainer.classList.remove('hidden');
+            } else {
+                zoneIdContainer.classList.add('hidden');
+            }
+
+            idHelpText.innerText = `Harap masukkan User ID ${selectedGame.name} Anda secara benar. Kesalahan penginputan di luar tanggung jawab sistem.`;
+
+            // Render Nominals for Selected Game
+            renderNominals();
+            
+            // Set first nominal as default
+            selectNominal(selectedGame.nominals[0]);
+            updateSummary();
+        }
+
+        // Render Nominals Cards
+        function renderNominals() {
+            const container = document.getElementById('nominal-list');
+            container.innerHTML = '';
+            selectedGame.nominals.forEach(nom => {
+                const button = document.createElement('button');
+                button.id = `nom-${nom.id}`;
+                button.onclick = () => selectNominal(nom);
+                button.className = 'p-3.5 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800/60 text-left transition relative overflow-hidden';
+                button.innerHTML = `
+                    <div class="text-[10px] text-indigo-400 font-extrabold uppercase tracking-wide mb-1">${selectedGame.currency}</div>
+                    <div class="text-sm font-bold text-white mb-2">${nom.value}</div>
+                    <div class="text-xs font-semibold text-gray-400">${nom.price}</div>
+                `;
+                container.appendChild(button);
+            });
+        }
+
+        // Select Nominal Card
+        function selectNominal(nominal) {
+            const prevNominal = selectedNominal;
+            selectedNominal = nominal;
+
+            if (prevNominal && document.getElementById(`nom-${prevNominal.id}`)) {
+                document.getElementById(`nom-${prevNominal.id}`).className = 'p-3.5 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800/60 text-left transition relative overflow-hidden';
+            }
+            if (document.getElementById(`nom-${nominal.id}`)) {
+                document.getElementById(`nom-${nominal.id}`).className = 'p-3.5 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 text-left transition relative overflow-hidden';
+            }
+            updateSummary();
+        }
+
+        // Render Payments
+        function renderPaymentsList() {
+            const container = document.getElementById('payment-list');
+            container.innerHTML = '';
+            paymentsData.forEach(pay => {
+                const button = document.createElement('button');
+                button.id = `pay-${pay.id}`;
+                button.onclick = () => selectPayment(pay);
+                button.className = 'p-4 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800/60 text-left flex items-center gap-3 transition';
+                button.innerHTML = `
+                    <div class="w-10 h-10 rounded-lg bg-gray-800 text-gray-400 flex items-center justify-center text-lg">
+                        <i class="${pay.icon}"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-white">${pay.name}</div>
+                        <div class="text-[10px] text-gray-400">${pay.extra}</div>
+                    </div>
+                `;
+                container.appendChild(button);
+            });
+            // Set first payment active
+            selectPayment(paymentsData[0]);
+        }
+
+        // Select Payment Card
+        function selectPayment(payment) {
+            const prevPayment = selectedPayment;
+            selectedPayment = payment;
+
+            if (prevPayment && document.getElementById(`pay-${prevPayment.id}`)) {
+                document.getElementById(`pay-${prevPayment.id}`).className = 'p-4 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800/60 text-left flex items-center gap-3 transition';
+            }
+            if (document.getElementById(`pay-${payment.id}`)) {
+                document.getElementById(`pay-${payment.id}`).className = 'p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 text-left flex items-center gap-3 transition';
+            }
+            updateSummary();
+        }
+
+        // Update Order Summary Panel
+        function updateSummary() {
+            document.getElementById('summary-game').innerText = selectedGame ? selectedGame.name : '-';
+            document.getElementById('summary-nominal').innerText = selectedNominal ? selectedNominal.value : '-';
+            document.getElementById('summary-payment').innerText = selectedPayment ? selectedPayment.name : '-';
+            document.getElementById('summary-price').innerText = selectedNominal ? selectedNominal.price : '-';
+        }
+
+        // Custom Error Message Modal alternatives (avoiding alert)
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-5 right-5 z-50 p-4 bg-red-600 text-white rounded-xl shadow-lg border border-red-500 animate-slide-in flex items-center gap-3';
+            notification.innerHTML = `
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span class="text-sm font-semibold">${message}</span>
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        // Trigger Injection Screen (Terminal Mode)
+        function triggerPayment() {
+            const userId = document.getElementById('user-id-input').value.trim();
+            const zoneId = document.getElementById('zone-id-input').value.trim();
+            const waNumber = document.getElementById('whatsapp-input').value.trim();
+
+            if (!userId) {
+                showNotification('Harap masukkan User ID Akun Target!');
+                return;
+            }
+            if (selectedGame.hasZone && !zoneId) {
+                showNotification('Harap masukkan Server / Zone ID game Anda!');
+                return;
+            }
+            if (!waNumber) {
+                showNotification('Harap masukkan Nomor WhatsApp Anda untuk penerimaan berkas!');
+                return;
+            }
+
+            // Hide Main Interface & Banner
+            document.getElementById('main-interface').classList.add('hidden');
+            document.getElementById('hero-banner').classList.add('hidden');
+
+            // Show Terminal Interface
+            const terminal = document.getElementById('terminal-screen');
+            terminal.classList.remove('hidden');
+
+            // Set background color of body blacker for matching console feeling
+            document.body.style.backgroundColor = '#030712';
+
+            // Start Terminal Simulation
+            runTerminalInfiltration(userId, zoneId);
+        }
+
+        // Simulated Terminal Loading Screen
+        function runTerminalInfiltration(userId, zoneId) {
+            const logsContainer = document.getElementById('terminal-logs-container');
+            const progressFill = document.getElementById('terminal-progress-fill');
+            const percentText = document.getElementById('terminal-percent-text');
+            
+            logsContainer.innerHTML = ''; // Reset terminal logs
+            progressFill.style.width = '0%';
+            percentText.innerText = '0%';
+
+            const targetIdString = selectedGame.hasZone ? `${userId} (${zoneId})` : userId;
+
+            // Generate Timestamp dynamic helper
+            const getTimestamp = () => {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                return `[${hours}:${minutes}:${seconds} ${ampm}]`;
+            };
+
+            const sequences = [
+                { text: `SYSTEM: Menargetkan server pusat game [${selectedGame.name}]...`, color: 'text-emerald-400', progress: 12 },
+                { text: `SYSTEM: Mencari metadata ID Akun: ${targetIdString}...`, color: 'text-emerald-400', progress: 28 },
+                { text: `SYSTEM: ID Akun ditemukan! Memverifikasi kecocokan avatar target...`, color: 'text-emerald-400', progress: 41 },
+                { text: `WARNING: Firewall server mendeteksi aktivitas mencurigakan! Memasang tameng virtual...`, color: 'text-red-500 font-bold', progress: 54 },
+                { text: `SYSTEM: Tameng berhasil diaktifkan. Memulai enkripsi lalu lintas 256-bit...`, color: 'text-emerald-400', progress: 68 },
+                { text: `SYSTEM: Menyuntikkan muatan paket gratis: ${selectedNominal.value}...`, color: 'text-emerald-400', progress: 77 },
+                { text: `PAYMENT: Memvalidasi pembayaran via [${selectedPayment.name}]...`, color: 'text-emerald-400', progress: 85 },
+                { text: `PAYMENT: Pembayaran tervalidasi sangat sah! Doa/Senyuman terdeteksi tulus.`, color: 'text-emerald-400', progress: 92 },
+                { text: `SYSTEM: Sedang mentransfer data ${selectedGame.currency} ke database utama...`, color: 'text-emerald-400', progress: 100 }
+            ];
+
+            let index = 0;
+
+            function printNextLine() {
+                if (index < sequences.length) {
+                    const step = sequences[index];
+                    const timestamp = getTimestamp();
+                    
+                    // Create element for log
+                    const logElement = document.createElement('div');
+                    logElement.className = `${step.color} transition-all duration-300 transform translate-y-2 opacity-0`;
+                    
+                    // Style matching screenshot (e.g., Warning message doesn't need SYSTEM: prefix or formatted slightly differently)
+                    if (step.text.startsWith('WARNING:')) {
+                        logElement.innerHTML = `<span class="text-emerald-500">${timestamp}</span> <span class="text-red-500">${step.text}</span>`;
+                    } else if (step.text.startsWith('PAYMENT:')) {
+                        logElement.innerHTML = `<span class="text-emerald-500">${timestamp}</span> <span class="text-[#2ecc71]">${step.text}</span>`;
+                    } else {
+                        logElement.innerHTML = `<span class="text-emerald-500">${timestamp}</span> ${step.text}`;
+                    }
+
+                    logsContainer.appendChild(logElement);
+                    
+                    // Trigger reflow for smooth animation
+                    setTimeout(() => {
+                        logElement.classList.remove('translate-y-2', 'opacity-0');
+                    }, 50);
+
+                    // Update Progress Bar
+                    progressFill.style.width = `${step.progress}%`;
+                    percentText.innerText = `${step.progress}%`;
+
+                    // Scroll to bottom of terminal
+                    logsContainer.scrollTop = logsContainer.scrollHeight;
+
+                    // Variable delay simulating real connection
+                    let nextDelay = 1000 + Math.random() * 800;
+                    if (index === 3) nextDelay = 1800; // Warning takes a bit longer to bypass
+                    
+                    index++;
+                    setTimeout(printNextLine, nextDelay);
+                } else {
+                    // Complete state reached
+                    setTimeout(() => {
+                        finishInfiltration();
+                    }, 1500);
+                }
+            }
+
+            // Start printing with a slight initial delay
+            setTimeout(printNextLine, 500);
+        }
+
+        // Finish Infiltration and show success screen
+        function finishInfiltration() {
+            document.getElementById('terminal-screen').classList.add('hidden');
+            
+            const targetIdString = selectedGame.hasZone ? `${document.getElementById('user-id-input').value} (${document.getElementById('zone-id-input').value})` : document.getElementById('user-id-input').value;
+
+            // Fill Receipt
+            document.getElementById('final-user-id').innerText = targetIdString;
+            document.getElementById('final-game').innerText = selectedGame.name;
+            document.getElementById('final-nominal').innerText = selectedNominal.value;
+            document.getElementById('final-payment').innerText = selectedPayment.name;
+
+            const successScreen = document.getElementById('success-screen');
+            successScreen.classList.remove('hidden');
+        }
+
+        // Share Receipt to WhatsApp
+        function shareToWhatsApp() {
+            const targetIdString = selectedGame.hasZone ? `${document.getElementById('user-id-input').value} (Server: ${document.getElementById('zone-id-input').value})` : document.getElementById('user-id-input').value;
+            const waNumber = document.getElementById('whatsapp-input').value;
+
+            const message = 
+`⚡ *TOP UP HEAVEN - STATUS SUKSES* ⚡
+-----------------------------------------
+Halo! Pembayaran Anda sebesar *${selectedNominal.price}* telah divalidasi sangat sah.
+
+🎮 *Game:* ${selectedGame.name}
+🎯 *ID Target:* ${targetIdString}
+💎 *Paket:* ${selectedNominal.value}
+💳 *Pembayaran:* ${selectedPayment.name}
+🛡️ *Enkripsi:* 256-Bit Tameng Virtual (Aktif)
+🟢 *Status:* SUKSES DISUNTIKKAN!
+
+Terima kasih telah melakukan top-up resmi di *TopUp Heaven Store*!`;
+
+            // Standard URL format for sharing to any whatsapp number
+            const encodedMessage = encodeURIComponent(message);
+            const waUrl = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedMessage}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Reset App back to initial Home Screen
+        function resetToHome() {
+            document.body.style.backgroundColor = '#0b0f19';
+            document.getElementById('success-screen').classList.add('hidden');
+            document.getElementById('terminal-screen').classList.add('hidden');
+            document.getElementById('main-interface').classList.remove('hidden');
+            document.getElementById('hero-banner').classList.remove('hidden');
+            
+            // Clear inputs
+            document.getElementById('user-id-input').value = '';
+            document.getElementById('zone-id-input').value = '';
+            document.getElementById('whatsapp-input').value = '';
+            
+            selectGame(gamesData[0].id);
+        }
+    </script>
+</body>
+</html>
